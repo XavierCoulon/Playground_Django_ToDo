@@ -1,0 +1,43 @@
+// DJANGO set up
+pip install django
+django-admin startproject todo
+/ rename todo src
+in  src:
+- django-admin createapp tasks
+- django-admin createapp authentification
+add the 2 apps in settings
+
+
+
+// PostgreSql set up
+pip install psycopg2
+Create the server in PostgreSQL
+Create a user from postgresql:
+- CREATE USER admin WITH ENCRYPTED PASSWORD 'admin';
+- \du to view users
+- ALTER ROLE admin SET client_encoding TO 'utf8';
+- ALTER ROLE admin SET default_transaction_isolation TO 'read committed';
+
+Create database:
+- CREATE DATABASE TODO;
+
+Give permissions to admin:
+- GRANT ALL PRIVILEGES ON DATABASE TODO TO admin;
+
+Settings:
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'todo',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': '5430'
+    }
+}
+
+python manage.py makemigrations
+python manage.py runserver to check to everything is OK
+python manage.py createsuperuser
+
