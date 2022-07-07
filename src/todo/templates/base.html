@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TODO</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'index' %}">Accueil</a></li>
+            <li><a href="{% url 'authentification:login' %}">Login</a></li>
+            <li><a href="{% url 'authentification:signup' %}">S'inscrire</a></li>
+            <li><a href="{% url 'authentification:logout' %}">Se déconnecter</a></li>
+            {% if request.user.is_authenticated %}
+                <p>Welcome {{request.user.email}}</p>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {%endblock %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+{% block content %}
+
+        <h3>Sign up using the form below...</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+          <input type="submit" name="sumbit">
+        </form>
+
+        <h3>... or using your  <a href="{% provider_login_url 'google'  %}">Gmail account!</a></h3>
+
+{% endblock %}
