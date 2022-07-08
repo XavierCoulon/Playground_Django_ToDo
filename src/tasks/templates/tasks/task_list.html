@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Tasks</h1>
     {% for task in tasks %}
-        <h3>{{ task.title }} {{ task.list }}</h3>
+        <h4>{{ task.list }}: {{ task.title }} </h4>
     {% endfor %}
 
 {% endblock %}

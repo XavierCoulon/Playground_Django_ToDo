@@ -9,4 +9,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('gmail.urls')),
     path('tasks/', include('tasks.urls')),
+    path('lists/', include('lists.urls')),
 ]
