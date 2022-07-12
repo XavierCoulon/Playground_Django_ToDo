@@ -1,9 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Tasks</h1>
-    {% for task in tasks %}
-        <h4>{{ task.list }}: {{ task.title }} </h4>
-    {% endfor %}
+
+{% regroup tasks by list as tasks_by_list %}
+
+<ul>
+{% for list in tasks_by_list %}
+    <li>{{ list.grouper }} <a href="{% url 'lists:update' pk=list.grouper.pk %}">Modifier la liste</a>
+    <ul>
+        {% for task in list.list %}
+          <li>{{ task.title }} {{ task.pk }} <a href="{% url 'tasks:update' pk=task.pk %}">Modifier la tâche</a></li>
+        {% endfor %}
+    </ul>
+    </li>
+{% endfor %}
+</ul>
+
 
 {% endblock %}

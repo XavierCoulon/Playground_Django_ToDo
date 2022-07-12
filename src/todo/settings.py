@@ -45,8 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'tasks',
     'lists',
-    'authentification',
-    'gmail',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -140,7 +138,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'authentification.CustomUser'
+# AUTH_USER_MODEL = 'authentication.CustomUser'
 
 LOGIN_REDIRECT_URL = 'lists:list'  # URL redirecting after a successful authentication
 

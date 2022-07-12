@@ -5,24 +5,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>TODO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li><a href="{% url 'index' %}">Accueil</a></li>
-            <li><a href="{% url 'authentification:login' %}">Login</a></li>
-            <li><a href="{% url 'authentification:signup' %}">S'inscrire</a></li>
-            <li><a href="{% url 'authentification:logout' %}">Se déconnecter</a></li>
-            {% if request.user.is_authenticated %}
-                <p>Welcome {{request.user.email}}</p>
-            {% endif %}
-        </ul>
-    </nav>
+
+    <nav class="py-2 bg-light border-bottom">
+    <div class="container d-flex flex-wrap">
+      <ul class="nav me-auto">
+        <li class="nav-item"><a href="{% url 'index' %}" class="nav-link link-dark px-2 active" aria-current="page">Accueil</a></li>
+      </ul>
+      <ul class="nav">
+          {% if request.user.is_authenticated %}
+
+        <li class="nav-link link-dark px-2">Welcome {{request.user.email}}</li>
+        <li class="nav-item"><a href="{% url 'account_logout' %}" class="btn btn-outline-primary me-2">Se déconnecter</a></li>
+
+      {% else %}
+          <li class="nav-item"><a href="{% url 'account_login' %}" class="btn btn-outline-primary me-2">Se connecter</a></li>
+          <li class="nav-item"><a href="{% url 'account_signup' %}" class="btn btn-outline-primary me-2">S'inscrire</a></li>
+      {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+
+
+  </div>
+
 
     <div class="container">
         {% block content %}
         {%endblock %}
     </div>
+
+
 </body>
 </html>
