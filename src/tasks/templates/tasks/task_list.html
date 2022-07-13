@@ -2,19 +2,65 @@
 
 {% block content %}
 
+<br>
+<a href="{% url 'lists:create' %}">Créer une nouvelle liste</a>
+
+<br>
+
 {% regroup tasks by list as tasks_by_list %}
+<br>
 
-<ul>
+<div class="row row-cols-auto">
 {% for list in tasks_by_list %}
-    <li>{{ list.grouper }} <a href="{% url 'lists:update' pk=list.grouper.pk %}">Modifier la liste</a>
-    <ul>
-        {% for task in list.list %}
-          <li>{{ task.title }} {{ task.pk }} <a href="{% url 'tasks:update' pk=task.pk %}">Modifier la tâche</a></li>
-        {% endfor %}
-    </ul>
-    </li>
-{% endfor %}
-</ul>
+<div class="col">
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+    {{ list.grouper }} <a href="{% url 'lists:update' pk=list.grouper.pk %}">Renommer</a>
+    </div>
+    <ul class="list-group list-group-flush">
+      {% for task in list.list %}
+        {% if not task.closed %}
 
+      <li class="list-group-item">
+        <a href="{% url 'tasks:close' pk=task.pk %}"><i class="bi bi-circle"></i></a>
+        {{ task.title }}
+        <a href="{% url 'tasks:update' pk=task.pk %}"><i class="bi bi-pencil-square"></i></a>
+      </li>
+  <!--      <li class="list-group-item">{{ task.title }} {{ task.pk }} <a href="{% url 'tasks:update' pk=task.pk %}" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil-square"></i></a></li>-->
+      {% endif %}
+      {% endfor %}
+    </ul>
+
+    <div class="card-header">
+    Tâches clôturées
+    </div>
+    <ul class="list-group list-group-flush">
+      {% for task in list.list %}
+        {% if task.closed %}
+      <li class="list-group-item">
+        <a href="{% url 'tasks:unclose' pk=task.pk %}"><i class="bi bi-check"></i></a>
+        <i>{{ task.title }}</i>
+        <a href="{% url 'tasks:delete' pk=task.pk %}"><i class="bi bi-trash"></i></a>
+      </li>
+  <!--      <li class="list-group-item">{{ task.title }} {{ task.pk }} <a href="{% url 'tasks:update' pk=task.pk %}" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil-square"></i></a></li>-->
+      {% endif %}
+      {% endfor %}
+    </ul>
+    <div class="card-body">
+    <a href="{% url 'tasks:create' list=list.grouper.pk %}">Créer une tâche <i class="bi bi-plus-square"></i></a>
+  </div>
+
+  </div>
+
+
+
+</div>
+{% endfor %}
+<!-- Modal -->
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog">-->
+
+<!--  </div>-->
+<!--</div>-->
 
 {% endblock %}

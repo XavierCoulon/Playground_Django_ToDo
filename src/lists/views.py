@@ -23,4 +23,4 @@ class ListCreate(CreateView):
 class ListUpdate(UpdateView):
 	model = List
 	template_name = "lists/list_update_form.html"
-	fields = "__all__"
+	fields = ["name"]

@@ -8,10 +8,19 @@ class Task(models.Model):
 	title = models.CharField(max_length=20, blank=False)
 	details = models.TextField(max_length=125, blank=True)
 	due_date = models.DateField(null=True, blank=True)
-	favorite = models.BooleanField(null=True, blank=True)
+	favorite = models.BooleanField(null=True, blank=True, default=False)
 
 	def __str__(self):
 		return self.title
 
 	def get_absolute_url(self):
 		return reverse("tasks:list")
+
+	def close(self):
+		self.closed = True
+		self.save()
+
+	def unclose(self):
+		self.closed = False
+		self.save()
+

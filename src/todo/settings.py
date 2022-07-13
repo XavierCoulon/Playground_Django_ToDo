@@ -140,7 +140,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AUTH_USER_MODEL = 'authentication.CustomUser'
 
-LOGIN_REDIRECT_URL = 'lists:list'  # URL redirecting after a successful authentication
+LOGIN_REDIRECT_URL = 'tasks:list'  # URL redirecting after a successful authentication
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
