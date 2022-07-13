@@ -14,7 +14,7 @@ class List(models.Model):
 		return self.name
 
 	def get_absolute_url(self):
-		return reverse("tasks:list")
+		return reverse("lists:list")
 
 
 

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<br>
+<a href="{% url 'lists:create' %}">Créer une nouvelle liste</a>
+<br>
+<br>
+<div class="row row-cols-auto">
+{% for list in lists %}
+<div class="col">
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+    {{ list.name }} <a href="{% url 'lists:update' pk=list.pk %}">Renommer</a>
+    </div>
+    <ul class="list-group list-group-flush">
+      {% for task in list.list.all %}
+        {% if not task.closed %}
+
+      <li class="list-group-item">
+        <a href="{% url 'tasks:close' pk=task.pk %}"><i class="bi bi-circle"></i></a>
+        {{ task.title }}
+        <a href="{% url 'tasks:update' pk=task.pk %}"><i class="bi bi-pencil-square"></i></a>
+      </li>
+  <!--      <li class="list-group-item">{{ task.title }} {{ task.pk }} <a href="{% url 'tasks:update' pk=task.pk %}" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil-square"></i></a></li>-->
+      {% endif %}
+      {% endfor %}
+    </ul>
+
+    <div class="card-header">
+    Tâches clôturées
+    </div>
+    <ul class="list-group list-group-flush">
+      {% for task in list.list.all %}
+        {% if task.closed %}
+      <li class="list-group-item">
+        <a href="{% url 'tasks:unclose' pk=task.pk %}"><i class="bi bi-check"></i></a>
+        <i>{{ task.title }}</i>
+        <a href="{% url 'tasks:delete' pk=task.pk %}"><i class="bi bi-trash"></i></a>
+      </li>
+  <!--      <li class="list-group-item">{{ task.title }} {{ task.pk }} <a href="{% url 'tasks:update' pk=task.pk %}" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil-square"></i></a></li>-->
+      {% endif %}
+      {% endfor %}
+    </ul>
+    <div class="card-body">
+    <a href="{% url 'tasks:create' list=list.pk %}">Créer une tâche <i class="bi bi-plus-square"></i></a>
+  </div>
+  </div>
+</div>
+{% endfor %}
+
+
+
+
+{% endblock %}

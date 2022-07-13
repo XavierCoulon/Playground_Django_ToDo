@@ -38,16 +38,16 @@ class TaskDelete(DeleteView):
 		return self.delete(request, *args, **kwargs)
 
 	def get_success_url(self):
-		return reverse("tasks:list")
+		return reverse("lists:list")
 
 
 def close(request, pk):
 	task = Task.objects.get(pk=pk)
 	task.close()
-	return redirect("tasks:list")
+	return redirect("lists:list")
 
 
 def unclose(request, pk):
 	task = Task.objects.get(pk=pk)
 	task.unclose()
-	return redirect("tasks:list")
+	return redirect("lists:list")
