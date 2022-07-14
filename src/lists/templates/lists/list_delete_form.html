@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <br>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>Etes-vous sûr de vouloir supprimer la liste "{{ object|upper }}"?</p>
+            {{ form.as_p }}
+            <input type="submit" value="Supprimer">
+        </form>
+{% endblock %}

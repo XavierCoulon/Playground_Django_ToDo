@@ -49,5 +49,5 @@ def close(request, pk):
 
 def unclose(request, pk):
 	task = Task.objects.get(pk=pk)
-	task.unclose()
+	task.reopen()
 	return redirect("lists:list")

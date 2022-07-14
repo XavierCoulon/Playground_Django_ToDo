@@ -1,4 +1,5 @@
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.urls import reverse
 from lists.models import List
 
 
@@ -24,3 +25,11 @@ class ListUpdate(UpdateView):
 	model = List
 	template_name = "lists/list_update_form.html"
 	fields = ["name"]
+
+
+class ListDelete(DeleteView):
+	model = List
+	template_name = "lists/list_delete_form.html"
+
+	def get_success_url(self):
+		return reverse("lists:list")

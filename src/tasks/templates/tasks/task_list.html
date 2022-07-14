@@ -38,7 +38,7 @@
       {% for task in list.list %}
         {% if task.closed %}
       <li class="list-group-item">
-        <a href="{% url 'tasks:unclose' pk=task.pk %}"><i class="bi bi-check"></i></a>
+        <a href="{% url 'tasks:reopen' pk=task.pk %}"><i class="bi bi-check"></i></a>
         <i>{{ task.title }}</i>
         <a href="{% url 'tasks:delete' pk=task.pk %}"><i class="bi bi-trash"></i></a>
       </li>

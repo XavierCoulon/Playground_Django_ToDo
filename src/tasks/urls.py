@@ -10,5 +10,5 @@ urlpatterns = [
 	path('update/<int:pk>', TaskUpdate.as_view(), name="update"),
 	path('delete/<int:pk>', TaskDelete.as_view(), name="delete"),
 	path('close/<int:pk>', close, name="close"),
-	path('unclose/<int:pk>', unclose, name="unclose"),
+	path('reopen/<int:pk>', unclose, name="reopen"),
 ]
