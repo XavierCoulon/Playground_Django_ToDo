@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class List(models.Model):
 	name = models.CharField(max_length=20, blank=False)
-	user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="user")
+	user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="lists")
 
 	class Meta:
 		unique_together = ["name", "user"]
@@ -16,5 +16,8 @@ class List(models.Model):
 	def get_absolute_url(self):
 		return reverse("lists:list")
 
+	def get_tasks_opened(self):
+		return self.tasks.filter(closed=False)
 
-
+	def get_tasks_closed(self):
+		return self.tasks.filter(closed=True)

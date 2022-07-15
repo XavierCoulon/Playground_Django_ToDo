@@ -4,7 +4,7 @@ from tasks.models import Task
 register = template.Library()
 
 
-# Filter use in template lists: list_list.html
+# Not used anymore
 @register.filter(name="has_tasks_closed")
 def has_tasks_closed(list):
     return Task.objects.filter(list=list, closed=True)

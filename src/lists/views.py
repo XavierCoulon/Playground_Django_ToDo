@@ -1,9 +1,10 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from lists.models import List
 
 
-class ListsList(ListView):
+class ListsList(LoginRequiredMixin, ListView):
 	model = List
 	context_object_name = "lists"
 
@@ -11,7 +12,7 @@ class ListsList(ListView):
 		return List.objects.filter(user=self.request.user)
 
 
-class ListCreate(CreateView):
+class ListCreate(LoginRequiredMixin, CreateView):
 	model = List
 	template_name = "lists/list_create_form.html"
 	fields = ["name"]
@@ -21,13 +22,13 @@ class ListCreate(CreateView):
 		return super().form_valid(form)
 
 
-class ListUpdate(UpdateView):
+class ListUpdate(LoginRequiredMixin, UpdateView):
 	model = List
 	template_name = "lists/list_update_form.html"
 	fields = ["name"]
 
 
-class ListDelete(DeleteView):
+class ListDelete(LoginRequiredMixin, DeleteView):
 	model = List
 	template_name = "lists/list_delete_form.html"
 

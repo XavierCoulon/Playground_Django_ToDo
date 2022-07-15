@@ -17,21 +17,21 @@
 
       </div>
       <ul class="list-group list-group-flush">
-        {% for task in list.list.all %}
-          {% if not task.closed %}
+        {% for task in list.get_tasks_opened %}
 
         <li class="list-group-item">
           <a href="{% url 'tasks:close' pk=task.pk %}"><i class="bi bi-circle"></i></a>
           {{ task.title }}
+            {% if task.due_date_is_past %}
+                <i class="bi bi-hourglass-bottom text-danger"></i>
+            {% endif %}
+
           <a href="{% url 'tasks:update' pk=task.pk %}"><i class="bi bi-pencil-square"></i></a>
         </li>
-
-        {% endif %}
         {% endfor %}
       </ul>
 
-      {% load filters %}
-      {% if list|has_tasks_closed %}
+      {% if list.get_tasks_closed %}
 
            <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
@@ -43,15 +43,13 @@
             <div id="flush-collapse{{list.pk}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{list.pk}}" data-bs-parent="#accordionFlushExample">
               <div class="accordion-body">
                 <ul class="list-group list-group-flush">
-          {% for task in list.list.all %}
-            {% if task.closed %}
-          <li class="list-group-item">
-            <a href="{% url 'tasks:reopen' pk=task.pk %}"><i class="bi bi-check"></i></a>
-            <i>{{ task.title }}</i>
-            <a href="{% url 'tasks:delete' pk=task.pk %}"><i class="bi bi-trash"></i></a>
-          </li>
 
-          {% endif %}
+        {% for task in list.get_tasks_closed %}
+              <li class="list-group-item">
+                <a href="{% url 'tasks:reopen' pk=task.pk %}"><i class="bi bi-check"></i></a>
+                <i>{{ task.title }}</i>
+                <a href="{% url 'tasks:delete' pk=task.pk %}"><i class="bi bi-trash"></i></a>
+              </li>
           {% endfor %}
         </ul>
               </div>

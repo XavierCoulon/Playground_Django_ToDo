@@ -9,5 +9,6 @@ class TaskForm(forms.ModelForm):
 		fields = ["title", "details", "due_date", "favorite"]
 
 		widgets = {
-			'due_date': forms.DateInput(attrs={'type': 'date'})
+			'due_date': forms.DateInput(format='%Y-%m-%d', attrs={'placeholder': 'Select a date', 'type': 'date'})
 		}
+
