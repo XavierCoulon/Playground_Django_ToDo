@@ -3,6 +3,8 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from rules.contrib.views import PermissionRequiredMixin
+
 from tasks.models import Task
 from lists.models import List
 from tasks.forms import TaskForm
@@ -26,10 +28,12 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 		return super().form_valid(form)
 
 
-class TaskUpdate(LoginRequiredMixin, UpdateView):
+class TaskUpdate(PermissionRequiredMixin, UpdateView):
 	model = Task
 	form_class = TaskForm
 	template_name = "tasks/task_update_form.html"
+	permission_required = "tasks.change_task"
+
 	# fields = ["title", "details", "due_date", "favorite", "closed"]
 
 
