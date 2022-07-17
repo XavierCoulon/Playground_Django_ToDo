@@ -1,5 +1,6 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from rules.contrib.views import PermissionRequiredMixin
 from django.urls import reverse
 from lists.models import List
 
@@ -22,15 +23,17 @@ class ListCreate(LoginRequiredMixin, CreateView):
 		return super().form_valid(form)
 
 
-class ListUpdate(LoginRequiredMixin, UpdateView):
+class ListUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 	model = List
 	template_name = "lists/list_update_form.html"
 	fields = ["name"]
+	permission_required = "lists.change_list"
 
 
-class ListDelete(LoginRequiredMixin, DeleteView):
+class ListDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 	model = List
 	template_name = "lists/list_delete_form.html"
+	permission_required = "lists.change_list"
 
 	def get_success_url(self):
 		return reverse("lists:list")

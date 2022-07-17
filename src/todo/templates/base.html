@@ -29,9 +29,14 @@
         {% endif %}
       </ul>
       <ul class="nav">
-          {% if request.user.is_authenticated %}
-
-        <li class="nav-link link-dark px-2">Welcome <a href="/accounts/password/set/">{{request.user.email}}</a></li>
+        {% load socialaccount %}
+          {% if request.user.is_authenticated  %}
+          {% get_social_accounts user as accounts %}
+        {% if not accounts  %}
+          <li class="nav-link link-dark px-2">Bienvenue <a href="/accounts/password/set/">{{request.user.email}}</a></li>
+          {% else %}
+           <li class="nav-link link-dark px-2">Bienvenue {{request.user.email}}</li>
+          {% endif %}
         <li class="nav-item"><a href="{% url 'account_logout' %}" class="btn btn-outline-primary me-2">Se déconnecter</a></li>
 
       {% else %}
