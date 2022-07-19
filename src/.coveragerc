@@ -1,0 +1,15 @@
+[run]
+omit =
+    *conftests.py*
+    *settings.py*
+    *tests*
+    *__init__.py*
+    *migrations*
+
+[report]
+omit =
+    *conftests.py*
+    *settings.py*
+    *tests*
+    *__init__.py*
+    *migrations*
