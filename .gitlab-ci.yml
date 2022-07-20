@@ -1,0 +1,7 @@
+run_tests:
+  image: python:3.10.5-slim-buster
+  script:
+    - python -m pytest
+run_flake8:
+  script:
+    - flake8
