@@ -6,6 +6,5 @@ run_tests:
     - python --version
     - pip3 install -r requirements.txt
   script:
-    - echo cd src
-    - echo ls -a
+    - cd src
     - python -m pytest
