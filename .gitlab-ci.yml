@@ -1,7 +1,7 @@
 run_tests:
   image: python:3.10-buster
   variables:
-    DJANGO_SETTINGS_MODULE: todo.settings.py
+    DJANGO_SETTINGS_MODULE: todo.settings
   before_script:
     - python --version
     - pip3 install -r requirements.txt
