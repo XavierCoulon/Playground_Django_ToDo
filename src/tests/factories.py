@@ -40,6 +40,3 @@ class TaskFactory(factory.django.DjangoModelFactory):
     details = fake.sentence(nb_words=10)
     due_date = fake.date_object()
     favorite = False
-
-
-

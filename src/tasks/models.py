@@ -29,4 +29,3 @@ class Task(models.Model):
 		if not self.due_date or self.due_date >= date.today():
 			return False
 		return True
-

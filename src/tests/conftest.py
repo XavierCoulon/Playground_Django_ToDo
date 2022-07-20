@@ -8,9 +8,10 @@ register(ListFactory)
 register(TaskFactory)
 
 
-@pytest.fixture()
-def user_test(db, user_factory):
-	return user_factory.create(password="password")
+@pytest.fixture
+def user(db, user_factory):
+	user = user_factory.create(password="password")
+	return user
 
 
 @pytest.fixture
