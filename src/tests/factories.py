@@ -36,8 +36,7 @@ class TaskFactory(factory.django.DjangoModelFactory):
 
     list = factory.SubFactory(ListFactory)
     closed = False
-    # title = fake.name()
-    title = "test"
+    title = fake.name()
     details = fake.sentence(nb_words=10)
     due_date = fake.date_object()
     favorite = False
