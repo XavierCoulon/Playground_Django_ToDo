@@ -41,3 +41,36 @@ python manage.py makemigrations
 python manage.py runserver to check to everything is OK
 python manage.py createsuperuser
 
+pip install python-dotenv
+Host secret django key in .env.
+
+Google authentication
+- pip install django-allauth
+
+GMail used: todo.xcoulon@gmail.com
+Password: todo.xcoulon.password
+
+Django rules:
+- pip install rules
+
+Pytest-django:
+- pip install pytest-django
+- python -m pytest
+
+Pytest Factory Boy:
+- pip install pytest-factoryboy
+
+Faker:
+- pip install Faker
+
+Coverage:
+- pip install coverage
+- coverage run -m pytest -rP
+- coverage html
+
+Github / Gitlab:
+- git remote set-url origin https://github.com/XavierCoulon/ToDo.git
+
+
+
+
