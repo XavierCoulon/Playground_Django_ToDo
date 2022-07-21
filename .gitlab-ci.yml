@@ -9,12 +9,13 @@ run_tests:
     POSTGRES_USER: admin
     POSTGRES_PASSWORD: admin
     POSTGRES_HOST_AUTH_METHOD: trust
-  script:
-    - export DATABASE_URL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5430/$POSTGRES_DB
-    - apt-get update -qy
-    - apt-get install -y python-dev python-pip
+    DATABASE_URL: "postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5430/$POSTGRES_DB"
+  cache:
+    paths:
+      - ~/.cache/pip/
+  before_script:
+    - python -V
     - pip install -r requirements.txt
+  script:
     - cd src
-    - python manage.py makemigrations
-    - python manage.py migrate
     - python -m pytest
