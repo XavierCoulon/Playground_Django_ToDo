@@ -93,7 +93,7 @@ DATABASES = {
         'NAME': 'todo',
         'USER': 'admin',
         'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
+        'HOST': 'localhost',
         'PORT': '5430'
     }
 }

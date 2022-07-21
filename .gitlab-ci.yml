@@ -5,8 +5,8 @@ run_tests:
   variables:
     DJANGO_SETTINGS_MODULE: todo.settings
     SECRET_KEY: $SECRET_KEY
-    POSTGRES_DB: "todo"
-    POSTGRES_USER: "admin"
+    POSTGRES_DB: todo
+    POSTGRES_USER: admin
     POSTGRES_PASSWORD: "admin"
     POSTGRES_HOST_AUTH_METHOD: trust
 
