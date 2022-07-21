@@ -1,21 +1,7 @@
-image: python:3.10-buster
-services:
-  - postgres:12.2-alpine
-variables:
-  DJANGO_SETTINGS_MODULE: todo.settings
-  SECRET_KEY: $SECRET_KEY
-  POSTGRES_DB: "todo"
-  POSTGRES_USER: "admin"
-  POSTGRES_PASSWORD: "admin"
-  POSTGRES_HOST_AUTH_METHOD: trust
-  DATABASE_URL: "postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5430/$POSTGRES_DB"
-cache:
-  paths:
-    - ~/.cache/pip/
-before_script:
-  - python -V
-  - pip install -r requirements.txt
-test:
+run_tests:
+  image: python:3.10-buster
+  services:
+    - postgres:12.2-alpine
   variables:
     DJANGO_SETTINGS_MODULE: todo.settings
     SECRET_KEY: $SECRET_KEY
@@ -23,7 +9,13 @@ test:
     POSTGRES_USER: "admin"
     POSTGRES_PASSWORD: "admin"
     POSTGRES_HOST_AUTH_METHOD: trust
-    DATABASE_URL: "postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5430/$POSTGRES_DB"
+
+  cache:
+    paths:
+      - ~/.cache/pip/
+  before_script:
+    - python -V
+    - pip install -r requirements.txt
   script:
     - cd src
     - python -m pytest
