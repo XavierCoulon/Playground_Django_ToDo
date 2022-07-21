@@ -70,6 +70,9 @@ Coverage:
 
 Github / Gitlab:
 - git remote set-url origin https://github.com/XavierCoulon/ToDo.git
+- git remote set-url origin https://gitlab.com/XavierCoulon/ToDo.git
+
+
 
 
 

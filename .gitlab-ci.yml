@@ -1,7 +1,12 @@
 run_tests:
   image: python:3.10-buster
+  services:
+    - postgres:latest
   variables:
     DJANGO_SETTINGS_MODULE: todo.settings
+    POSTGRES_DB: "todo"
+    POSTGRES_USER: "admin"
+    POSTGRES_PASSWORD: "admin"
   before_script:
     - python --version
     - pip3 install -r requirements.txt
