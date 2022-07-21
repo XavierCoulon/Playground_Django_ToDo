@@ -10,6 +10,7 @@ run_tests:
     POSTGRES_PASSWORD: "admin"
   before_script:
     - python --version
+    - export DATABASE_URL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5430/$POSTGRES_DB
     - pip3 install -r requirements.txt
   script:
     - cd src
