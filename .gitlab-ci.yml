@@ -1,17 +1,20 @@
 run_tests:
   image: python:3.10-buster
   services:
-    - postgres:latest
+    - postgres:12.2-alpine
   variables:
     DJANGO_SETTINGS_MODULE: todo.settings
     SECRET_KEY: $SECRET_KEY
     POSTGRES_DB: todo
     POSTGRES_USER: admin
     POSTGRES_PASSWORD: admin
+    POSTGRES_HOST_AUTH_METHOD: trust
   script:
     - export DATABASE_URL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5430/$POSTGRES_DB
     - apt-get update -qy
     - apt-get install -y python-dev python-pip
     - pip install -r requirements.txt
     - cd src
+    - python manage.py makemigrations
+    - python manage.py migrate
     - python -m pytest
