@@ -1,7 +1,7 @@
 run_tests:
   image: python:3.10-buster
   services:
-    - postgres:12.2-alpine
+    - postgres:14.3
   variables:
     DJANGO_SETTINGS_MODULE: todo.settings
     SECRET_KEY: $SECRET_KEY
