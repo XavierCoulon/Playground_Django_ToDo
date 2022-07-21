@@ -8,10 +8,10 @@ run_tests:
     POSTGRES_DB: "todo"
     POSTGRES_USER: "admin"
     POSTGRES_PASSWORD: "admin"
-  before_script:
-    - python --version
-    - export DATABASE_URL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5430/$POSTGRES_DB
-    - pip3 install -r requirements.txt
   script:
+    - export DATABASE_URL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5430/$POSTGRES_DB
+    - apt-get update -qy
+    - apt-get install -y python-dev python-pip
+    - pip install -r requirements.txt
     - cd src
     - python -m pytest
