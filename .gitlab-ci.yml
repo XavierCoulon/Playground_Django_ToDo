@@ -31,6 +31,6 @@ build_image:
   before_script:
     - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
   script:
-    - docker build -t $IMG_NAME:$IMG_TAG .
+    - docker build -t $IMG_NAME:$IMG_TAG --platform linux/amd64 .
     - docker push $IMG_NAME:$IMG_TAG
 
