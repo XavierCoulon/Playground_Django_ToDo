@@ -5,9 +5,11 @@ run_tests:
   variables:
     DJANGO_SETTINGS_MODULE: todo.settings
     SECRET_KEY: $SECRET_KEY
-    POSTGRES_DB: todo
-    POSTGRES_USER: admin
-    POSTGRES_PASSWORD: "admin"
+    POSTGRES_DB: $POSTGRES_DB
+    POSTGRES_USER: $POSTGRES_USER
+    POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    POSTGRES_HOST: postgres
+    POSTGRES_PORT: 5432
     POSTGRES_HOST_AUTH_METHOD: trust
 
   cache:
@@ -17,5 +19,6 @@ run_tests:
     - python -V
     - pip install -r requirements.txt
   script:
+    - env
     - cd src
     - python -m pytest
