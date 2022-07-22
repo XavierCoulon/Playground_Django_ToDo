@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from rules.contrib.views import PermissionRequiredMixin
 from django.db.models import Count, Q
 from django.shortcuts import render
@@ -36,12 +36,15 @@ class TaskUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 class TaskDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 	model = Task
 	permission_required = "tasks.delete_task"
+	success_url = reverse_lazy("lists:list")
+	template_name = "lists/list_list.html"
 
-	def get(self, request, *args, **kwargs):
-		return self.delete(request, *args, **kwargs)
 
-	def get_success_url(self):
-		return reverse("lists:list")
+	# def get(self, request, *args, **kwargs):
+	# 	return self.delete(request, *args, **kwargs)
+
+	# def get_success_url(self):
+	# 	return reverse("lists:list")
 
 
 @login_required

@@ -32,7 +32,9 @@ def test_model_task_get_absolute_url(client, list):
 
 
 def test_view_taskdelete_get(client, task):
-    pass
+    assert client.login(email=task.list.user.email, password="password")
+    response = client.delete(reverse("tasks:delete", args=[task.id]), follow=True)
+    assertRedirects(response, "/lists/")
 
 
 def test_view_taskdelete_get_success_url(client, task):

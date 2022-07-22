@@ -4,14 +4,12 @@ run_tests:
     - postgres:14.3
   variables:
     DJANGO_SETTINGS_MODULE: todo.settings
-    SECRET_KEY: $SECRET_KEY
     POSTGRES_DB: $POSTGRES_DB
     POSTGRES_USER: $POSTGRES_USER
     POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     POSTGRES_HOST: postgres
     POSTGRES_PORT: 5432
     POSTGRES_HOST_AUTH_METHOD: trust
-
   cache:
     paths:
       - ~/.cache/pip/
@@ -22,3 +20,17 @@ run_tests:
     - env
     - cd src
     - python -m pytest
+build_image:
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+    IMG_NAME: spino13/todo
+    IMG_TAG: v1.0
+  before_script:
+    - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
+  script:
+    - docker build -t $IMG_NAME:$IMG_TAG .
+    - docker push $IMG_NAME:$IMG_TAG
+
