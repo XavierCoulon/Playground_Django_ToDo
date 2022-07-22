@@ -69,8 +69,9 @@ Coverage:
 - coverage html
 
 Github / Gitlab:
-- git remote set-url origin https://github.com/XavierCoulon/ToDo.git
-- git remote set-url origin https://gitlab.com/XavierCoulon/ToDo.git
+- git push gitlab (or origin) / (cause gitlab has been added to remote url /!\
+    - git remote set-url origin https://github.com/XavierCoulon/ToDo.git
+    - git remote set-url origin https://gitlab.com/XavierCoulon/ToDo.git
 
 
 
