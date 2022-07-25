@@ -1,6 +1,7 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block content %}
 <br>
-<h4>Erreur 403 - Page non accessible pour des raisons de droit.</h4>
+<h4>{% blocktranslate %} Erreur 403 - Page non accessible pour des raisons de droit.{% endblocktranslate %}</h4>
+
 {% endblock %}

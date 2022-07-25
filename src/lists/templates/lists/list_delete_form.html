@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block content %}
-        <br>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <p>Etes-vous sûr de vouloir supprimer la liste "{{ object|upper }}"?</p>
-            {{ form.as_p }}
-            <input type="submit" value="Supprimer">
-        </form>
+<br>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>{% blocktranslate with list_name=object|upper%} Etes-vous sûr de vouloir supprimer la liste {{ list_name }} {% endblocktranslate %}</p>
+    {{ form.as_p }}
+    <input type="submit" value="{% trans 'Supprimer' %}">
+</form>
 {% endblock %}

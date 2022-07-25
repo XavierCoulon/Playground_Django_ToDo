@@ -1,13 +1,15 @@
 import json
 
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse, reverse_lazy
-from rules.contrib.views import PermissionRequiredMixin
+from django.urls import reverse_lazy
+from rules.contrib.views import PermissionRequiredMixin, objectgetter
+from rules.contrib.views import permission_required
 from django.db.models import Count, Q
 from django.shortcuts import render
+from django.utils.translation import gettext
 
 from tasks.models import Task
 from lists.models import List
@@ -30,8 +32,6 @@ class TaskUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 	template_name = "tasks/task_update_form.html"
 	permission_required = "tasks.change_task"
 
-	# fields = ["title", "details", "due_date", "favorite", "closed"]
-
 
 class TaskDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 	model = Task
@@ -40,24 +40,15 @@ class TaskDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 	template_name = "lists/list_list.html"
 
 
-	# def get(self, request, *args, **kwargs):
-	# 	return self.delete(request, *args, **kwargs)
-
-	# def get_success_url(self):
-	# 	return reverse("lists:list")
-
-
-@login_required
+@permission_required("tasks.change_task", fn=objectgetter(Task, "pk"), raise_exception=True)
 def close(request, pk):
-	task = Task.objects.get(pk=pk)
-	task.close()
+	Task.objects.get(pk=pk).close()
 	return redirect("lists:list")
 
 
 @login_required
 def reopen(request, pk):
-	task = Task.objects.get(pk=pk)
-	task.reopen()
+	Task.objects.get(pk=pk).reopen()
 	return redirect("lists:list")
 
 
@@ -78,20 +69,20 @@ def statistics(request):
 		not_closed_series_data.append(entry['not_closed_count'])
 
 	closed_series = {
-		'name': 'Fermées',
+		'name': gettext('Fermées'),
 		'data': closed_series_data,
 		'color': 'green'
 	}
 
 	not_closed_series = {
-		'name': 'Ouvertes',
+		'name': gettext('Ouvertes'),
 		'data': not_closed_series_data,
 		'color': 'blue'
 	}
 
 	chart = {
 		'chart': {'type': 'column'},
-		'title': {'text': 'Tâches par statut'},
+		'title': {'text': gettext('Tâches par statut')},
 		'xAxis': {'categories': lists},
 		'series': [closed_series, not_closed_series]
 	}

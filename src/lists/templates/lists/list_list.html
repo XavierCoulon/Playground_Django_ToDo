@@ -1,79 +1,86 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block content %}
 
 <br>
-<a href="{% url 'lists:create' %}">Créer une nouvelle liste</a>
+<a href="{% url 'lists:create' %}">
+    {% blocktranslate %} Créer une nouvelle liste {% endblocktranslate %}
+</a>
 <br>
 <br>
 <div class="row row-cols-auto g-4">
-{% for list in lists %}
-  <div class="col">
-    <div class="card border-secondary" style="width: 18rem;">
-      <div class="card-header">
-      {{ list.name|upper }}
-        <a href="{% url 'lists:update' pk=list.pk %}"><i class="bi bi-pencil-square"></i></a>
-        <a href="{% url 'lists:delete' pk=list.pk %}"><i class="bi bi-trash"></i></a>
+    {% for list in lists %}
+    <div class="col">
+        <div class="card border-secondary" style="width: 18rem;">
+            <div class="card-header">
+                {{ list.name|upper }}
+                <a href="{% url 'lists:update' pk=list.pk %}"><i
+                        class="bi bi-pencil-square"></i></a>
+                <a href="{% url 'lists:delete' pk=list.pk %}"><i class="bi bi-trash"></i></a>
 
-      </div>
-      <ul class="list-group list-group-flush">
-        {% for task in list.get_tasks_opened %}
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for task in list.get_tasks_opened %}
 
-        <li class="list-group-item">
-          <a href="{% url 'tasks:close' pk=task.pk %}"><i class="bi bi-circle"></i></a>
-          {{ task.title }}
-            {% if task.due_date_is_past %}
-                <i class="bi bi-hourglass-bottom text-danger"></i>
+                <li class="list-group-item">
+                    <a href="{% url 'tasks:close' pk=task.pk %}"><i class="bi bi-circle"></i></a>
+                    {{ task.title }}
+                    {% if task.due_date_is_past %}
+                    <i class="bi bi-hourglass-bottom text-danger"></i>
+                    {% endif %}
+
+                    <a href="{% url 'tasks:update' pk=task.pk %}"><i
+                            class="bi bi-pencil-square"></i></a>
+                </li>
+                {% endfor %}
+            </ul>
+
+            {% if list.get_tasks_closed %}
+
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-heading{{list.name}}">
+                        <button class="accordion-button collapsed" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapse{{list.pk}}" aria-expanded="false"
+                                aria-controls="flush-collapse{{list.pk}}">
+                            {% trans "Terminée(s)" %}
+                        </button>
+                    </h2>
+                    <div id="flush-collapse{{list.pk}}" class="accordion-collapse collapse"
+                         aria-labelledby="flush-heading{{list.pk}}"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+
+                                {% for task in list.get_tasks_closed %}
+                                <li class="list-group-item">
+                                    <a href="{% url 'tasks:reopen' pk=task.pk %}"><i
+                                            class="bi bi-check"></i></a>
+                                    <i>{{ task.title }}</i>
+                                    <a href="{% url 'tasks:delete' pk=task.pk %}"><i
+                                            class="bi bi-trash"></i></a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {% endif %}
 
-          <a href="{% url 'tasks:update' pk=task.pk %}"><i class="bi bi-pencil-square"></i></a>
-        </li>
-        {% endfor %}
-      </ul>
-
-      {% if list.get_tasks_closed %}
-
-           <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-heading{{list.name}}">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{list.pk}}" aria-expanded="false" aria-controls="flush-collapse{{list.pk}}">
-                Terminée(s)
-              </button>
-            </h2>
-            <div id="flush-collapse{{list.pk}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{list.pk}}" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">
-                <ul class="list-group list-group-flush">
-
-        {% for task in list.get_tasks_closed %}
-              <li class="list-group-item">
-                <a href="{% url 'tasks:reopen' pk=task.pk %}"><i class="bi bi-check"></i></a>
-                <i>{{ task.title }}</i>
-                <a href="{% url 'tasks:delete' pk=task.pk %}"><i class="bi bi-trash"></i></a>
-              </li>
-          {% endfor %}
-        </ul>
-              </div>
+            <div class="card-footer">
+                <a href="{% url 'tasks:create' list=list.pk %}">
+                    {% blocktranslate %} Créer une tâche {% endblocktranslate %}
+                    <i class="bi bi-plus-square"></i></a>
             </div>
-          </div>
+
         </div>
-
-      {% endif %}
-
-         <div class="card-footer">
-             <a href="{% url 'tasks:create' list=list.pk %}">Créer une tâche <i class="bi bi-plus-square"></i></a>
-        </div>
-
     </div>
-  </div>
 
 
-
-
-
-
-
-
-{% endfor %}
+    {% endfor %}
 </div>
 
 {% endblock %}
