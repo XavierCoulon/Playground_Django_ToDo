@@ -58,8 +58,11 @@
                                     <a href="{% url 'tasks:reopen' pk=task.pk %}"><i
                                             class="bi bi-check"></i></a>
                                     <i>{{ task.title }}</i>
-                                    <a href="{% url 'tasks:delete' pk=task.pk %}"><i
-                                            class="bi bi-trash"></i></a>
+                                    <form method="POST" action="{% url 'tasks:delete' pk=task.pk %}">
+                                        {% csrf_token %}
+                                        <button type="button" class="btn btn-outline-primary btn-sm"><i class="bi bi-trash"></i></button>
+                                    </form>
+
                                 </li>
                                 {% endfor %}
                             </ul>

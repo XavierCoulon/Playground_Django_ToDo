@@ -13,9 +13,6 @@ class List(models.Model):
 	def __str__(self):
 		return self.name
 
-	def get_absolute_url(self):
-		return reverse("lists:list")
-
 	def get_tasks_opened(self):
 		return self.tasks.filter(closed=False)
 

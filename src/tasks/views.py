@@ -1,6 +1,6 @@
 import json
 
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, reverse
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -20,6 +20,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 	model = Task
 	form_class = TaskForm
 	template_name = "tasks/task_create_form.html"
+	success_url = reverse_lazy("lists:list")
 
 	def form_valid(self, form):
 		form.instance.list = List.objects.get(pk=self.kwargs["list"])
@@ -31,6 +32,7 @@ class TaskUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 	form_class = TaskForm
 	template_name = "tasks/task_update_form.html"
 	permission_required = "tasks.change_task"
+	success_url = reverse_lazy("lists:list")
 
 
 class TaskDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
@@ -40,6 +42,7 @@ class TaskDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 	template_name = "lists/list_list.html"
 
 
+@login_required()
 @permission_required("tasks.change_task", fn=objectgetter(Task, "pk"), raise_exception=True)
 def close(request, pk):
 	Task.objects.get(pk=pk).close()
@@ -47,6 +50,7 @@ def close(request, pk):
 
 
 @login_required
+@permission_required("tasks.change_task", fn=objectgetter(Task, "pk"), raise_exception=True)
 def reopen(request, pk):
 	Task.objects.get(pk=pk).reopen()
 	return redirect("lists:list")
@@ -59,9 +63,7 @@ def statistics(request):
 		not_closed_count=Count("list", filter=Q(closed=False))
 	)
 
-	lists = list()
-	closed_series_data = list()
-	not_closed_series_data = list()
+	lists = closed_series_data = not_closed_series_data = []
 
 	for entry in dataset:
 		lists.append(entry['list__name'])

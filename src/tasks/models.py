@@ -14,9 +14,6 @@ class Task(models.Model):
 	def __str__(self):
 		return self.title
 
-	def get_absolute_url(self):
-		return reverse("lists:list")
-
 	def close(self):
 		self.closed = True
 		self.save()
