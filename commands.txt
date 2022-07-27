@@ -65,13 +65,26 @@ Faker:
 
 Coverage:
 - pip install coverage
-- coverage run -m pytest -rP
 - coverage html
 
 Github / Gitlab:
 - git push gitlab (or origin) / (cause gitlab has been added to remote url /!\
     - git remote set-url origin https://github.com/XavierCoulon/ToDo.git
     - git remote set-url origin https://gitlab.com/XavierCoulon/ToDo.git
+
+Pycharm: automatic indentztion Opt + Command + L
+
+Translation:
+- python manage.py makemessages --all
+- python manage.py compilemessages
+
+
+DOCKER
+
+docker run -p 8000:8000 -e POSTGRES_USER=admin -e POSTGRES_DB=todo -e POSTGRES_PASSWORD=admin -e POSTGRES_HOST=192.168.1.53 -e POSTGRES_PORT=5430 toto
+docker build -t toto .
+
+Gérer le .dockerignore
 
 
 

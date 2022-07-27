@@ -1,6 +1,6 @@
 import json
 
-from django.shortcuts import redirect, get_object_or_404, reverse
+from django.shortcuts import redirect
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required

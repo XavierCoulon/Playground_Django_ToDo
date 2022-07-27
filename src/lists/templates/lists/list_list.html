@@ -55,13 +55,22 @@
 
                                 {% for task in list.get_tasks_closed %}
                                 <li class="list-group-item">
-                                    <a href="{% url 'tasks:reopen' pk=task.pk %}"><i
-                                            class="bi bi-check"></i></a>
-                                    <i>{{ task.title }}</i>
-                                    <form method="POST" action="{% url 'tasks:delete' pk=task.pk %}">
-                                        {% csrf_token %}
-                                        <button type="button" class="btn btn-outline-primary btn-sm"><i class="bi bi-trash"></i></button>
-                                    </form>
+                                    <div class="container text-center">
+                                        <div class="row">
+                                            <div class="col">
+                                                <a href="{% url 'tasks:reopen' pk=task.pk %}"><i
+                                                        class="bi bi-check"></i></a>
+                                                <i>{{ task.title }}</i>
+                                            </div>
+                                            <div class="col">
+                                                <form method="POST" action="{% url 'tasks:delete' pk=task.pk %}">
+                                                    {% csrf_token %}
+                                                    <button type="button" class="btn btn-outline-primary btn-sm"><i class="bi bi-trash"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                 </li>
                                 {% endfor %}

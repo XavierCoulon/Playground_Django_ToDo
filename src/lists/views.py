@@ -1,7 +1,7 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rules.contrib.views import PermissionRequiredMixin
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 
 from lists.models import List
 

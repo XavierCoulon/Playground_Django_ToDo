@@ -1,9 +1,7 @@
-import requests
 
 from django.urls import reverse
 from pytest_django.asserts import assertRedirects
 from django.utils import translation
-from pprint import pprint
 
 from tasks.rules import is_task_owner
 from tasks.models import Task
