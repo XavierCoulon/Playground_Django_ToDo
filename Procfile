@@ -1,1 +1,1 @@
-web: gunicorn todo.wsgi
+web: gunicorn --chdir src todo.wsgi
