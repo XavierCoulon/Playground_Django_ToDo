@@ -86,6 +86,9 @@ docker build -t toto .
 
 Gérer le .dockerignore
 
+Heroku:
+- pip install gunicorn (web server)
+
 
 
 
