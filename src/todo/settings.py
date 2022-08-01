@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+import django_heroku
+
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
@@ -204,3 +206,5 @@ EMAIL_HOST_PASSWORD = os.getenv("GMAIL_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'default from email'
+
+django_heroku.settings(locals())
