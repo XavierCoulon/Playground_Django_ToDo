@@ -88,6 +88,11 @@ Gérer le .dockerignore
 
 Heroku:
 - pip install gunicorn (web server)
+- pip install django-heroku (+ add in settings)
+- heroku run python src/manage.py migrate (run migrate)
+- heroku run python src/manage.py createsuperuser
+
+
 
 
 
