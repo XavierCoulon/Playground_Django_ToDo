@@ -91,6 +91,10 @@ Heroku:
 - pip install django-heroku (+ add in settings)
 - heroku run python src/manage.py migrate (run migrate)
 - heroku run python src/manage.py createsuperuser
+- git push heroku (once set up as remote branch)
+
+Production:
+- 192.168.1.53
 
 
 
