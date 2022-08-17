@@ -41,13 +41,14 @@ run_tests:
 #    - docker push $IMG_NAME:$IMG_TAG
 deploy_heroku:
   stage: deploy
-  image: cimg/python:3.10.4
+  image: docker:20.10.16
   services:
     - docker:20.10.16-dind
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
     HEROKU_APP_NAME: xcotodo
   before_script:
+    - apk add --update curl
     - curl https://cli-assets.heroku.com/install.sh | sh
   script:
     - HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
