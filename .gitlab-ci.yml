@@ -1,7 +1,7 @@
 stages:
   - test
   #- build
-  - production
+  - deploy
 run_tests:
   stage: test
   image: python:3.10-buster
@@ -40,8 +40,16 @@ run_tests:
 #    - docker build -t $IMG_NAME:$IMG_TAG .
 #    - docker push $IMG_NAME:$IMG_TAG
 deploy_heroku:
-  stage: production
-  script:
+  image: ruby:2.4
+  stage: deploy
+  before_script:
     - gem install dpl
-    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
+    - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+  script:
+    - dpl --provider=heroku --app=$HEROKU_APPNAME --api-key=$HEROKU_APIKEY
+    - export HEROKU_API_KEY=$HEROKU_APIKEY
+    - heroku run --app $HEROKU_APPNAME python manage.py migrate
+  environment:
+    name: production
+    url: $HEROKU_APP_HOST
 
