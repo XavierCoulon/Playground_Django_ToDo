@@ -40,7 +40,7 @@ run_tests:
 #    - docker build -t $IMG_NAME:$IMG_TAG .
 #    - docker push $IMG_NAME:$IMG_TAG
 deploy_heroku:
-  image: ruby:2.4
+  image: ruby:2.6
   stage: deploy
   before_script:
     - gem install dpl
