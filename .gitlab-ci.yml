@@ -40,18 +40,8 @@ run_tests:
 #    - docker build -t $IMG_NAME:$IMG_TAG .
 #    - docker push $IMG_NAME:$IMG_TAG
 deploy_heroku:
-  stage: deploy
-  image: docker:20.10.16
-  services:
-    - docker:20.10.16-dind
-  variables:
-    DOCKER_TLS_CERTDIR: "/certs"
-    HEROKU_APP_NAME: xcotodo
-  before_script:
-    - apk add --update curl
-    - curl https://cli-assets.heroku.com/install.sh | sh
+  stage: production
   script:
-    - HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
-    - HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a ${HEROKU_APP_NAME} web
-    - HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a ${HEROKU_APP_NAME} web
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
 
