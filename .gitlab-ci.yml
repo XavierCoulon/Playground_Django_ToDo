@@ -1,7 +1,7 @@
 stages:
   - test
   #- build
-  - deploy
+  - production
 run_tests:
   stage: test
   image: python:3.10-buster
