@@ -38,6 +38,7 @@ class TaskUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 class TaskDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 	model = Task
 	permission_required = "tasks.delete_task"
+	print("test")
 	success_url = reverse_lazy("lists:list")
 	template_name = "lists/list_list.html"
 
