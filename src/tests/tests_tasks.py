@@ -52,3 +52,7 @@ def test_view_task_reopen(client, task):
 
 def test_rules_task(task):
     assert is_task_owner(task.list.user, task)
+
+
+def test_statistics(client, task):
+    pass

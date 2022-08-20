@@ -63,7 +63,9 @@ def statistics(request):
 		not_closed_count=Count("list", filter=Q(closed=False))
 	)
 
-	lists = closed_series_data = not_closed_series_data = []
+	lists = []
+	closed_series_data = []
+	not_closed_series_data = []
 
 	for entry in dataset:
 		lists.append(entry['list__name'])
